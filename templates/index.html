@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero"><p class="eyebrow">DEIN PERSÖNLICHES FILMARCHIV</p><h1>Gute Filme bleiben.<br><span>Hier ist ihr Platz.</span></h1><p class="intro">Vom ersten Lieblingsfilm bis zur nächsten Entdeckung.<br>Wähle dein Profil und stelle deine Sammlung zusammen.</p><div class="hero-badge"><span aria-hidden="true">◉</span> Deine Filme. Dein Geschmack.</div></section>
+<div class="section-heading"><div><p class="eyebrow">LOS GEHT'S</p><h2>Wer schaut heute?</h2></div><span class="count">{{ users|length }} Profile</span></div>
+<div class="profile-layout"><section aria-label="Nutzerprofile">
+{% if users %}<ul class="profile-grid">{% for user in users %}<li><a class="profile-card" href="{{ url_for('list_movies', user_id=user.id) }}"><span class="avatar">{{ user.name[0]|upper }}</span><span><strong>{{ user.name }}</strong><small>Sammlung öffnen</small></span><span class="arrow" aria-hidden="true">↗</span></a></li>{% endfor %}</ul>
+{% else %}<div class="empty-state"><span class="empty-icon" aria-hidden="true">◎</span><h3>Deine erste Sammlung wartet.</h3><p>Lege ein Profil an. Danach kannst du deine Lieblingsfilme direkt über ihren Titel hinzufügen.</p></div>{% endif %}</section>
+<section class="form-card"><p class="eyebrow">NEU HIER?</p><h2>Dein Profil anlegen</h2><p>Ein Name genügt, um loszulegen.</p><form action="{{ url_for('create_user') }}" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><label for="name">Dein Name</label><input id="name" name="name" maxlength="80" required placeholder="z. B. Alex" autocomplete="nickname"><button type="submit">Profil erstellen <span aria-hidden="true">→</span></button></form><small>Profile sind frei auswählbar und benötigen kein Passwort.</small></section></div>
+{% endblock %}
