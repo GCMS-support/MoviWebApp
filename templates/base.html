@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Deine Lieblingsfilme. Deine persönliche Sammlung.">
+  <title>{% block title %}MoviWeb · Deine Filmwelt{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <a class="skip-link" href="#content">Zum Inhalt</a>
+  <header class="topbar"><a class="brand" href="{{ url_for('index') }}"><span class="brand-icon" aria-hidden="true">M</span> MoviWeb<span class="brand-dot">.</span></a><nav aria-label="Hauptnavigation"><a href="{{ url_for('index') }}">Profile & Sammlungen</a></nav></header>
+  <main id="content" class="container">
+    {% for category, message in get_flashed_messages(with_categories=true) %}<div class="notice {{ category }}" role="status">{{ message }}</div>{% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer><span>MoviWeb · Ein Zuhause für gute Filme.</span><span>Filmdaten von OMDb</span></footer>
+</body>
+</html>
